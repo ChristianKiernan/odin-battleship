@@ -1,10 +1,19 @@
 import { Node } from "./node.js";
+import { Ship } from "./ship.js";
 
 export class Gameboard {
     constructor() {
         this.rows = 10;
         this.columns = 10;
         this.board = [];
+        this.ships = this.setShips();
+    }
+    setShips() {
+        const destroyer = new Ship("destroyer", 2);
+        const submarine = new Ship("submarine", 3);
+        const cruiser = new Ship("cruiser", 3);
+        const battleship = new Ship("submarine", 4);
+        const carrier = new Ship("carrier", 5);
     }
     setBoard() {
         for (let i = 0; i < this.rows; i++) {
