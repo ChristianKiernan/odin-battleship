@@ -6,10 +6,13 @@ export class Gameboard {
         this.rows = 10;
         this.columns = 10;
         this.board = [];
+        this.guessList = [];
+        this.hitList = [];
+
         this.destroyer = new Ship("destroyer", 2);
         this.submarine = new Ship("submarine", 3);
         this.cruiser = new Ship("cruiser", 3);
-        this.battleship = new Ship("submarine", 4);
+        this.battleship = new Ship("battleship", 4);
         this.carrier = new Ship("carrier", 5);
     }
     setBoard() {
@@ -72,6 +75,49 @@ export class Gameboard {
             } else {
                 return true;
             }
+        }
+    }
+    receiveAttack(cords) {
+        if (!this.guessList.includes(cords)) {
+            const x = cords[0];
+            const y = cords[1];
+
+            if (this.board[x][y].value === "empty") {
+                this.setGuessList(cords);
+                return "Miss";
+            }
+            else {
+                this.setHitList(cords);
+                this.sendHit(this.board[x][y].value);
+                return `Hit on ${this.board[x][y].value}`;
+            }
+        }
+        return "Invalid guess"
+    }
+    setGuessList(cords) {
+        this.guessList.push(cords); 
+    }
+    setHitList(cords) {
+        this.hitList.push(cords);
+    }
+    resetGuessList() {
+        this.guessList = [];
+    }
+    sendHit(idOfShip) {
+        if (idOfShip === "destroyer") {
+            this.destroyer.hit();
+        }
+        else if (idOfShip === "submarine") {
+            this.submarine.hit();
+        }
+        else if (idOfShip === "cruiser") {
+            this.cruiser.hit();
+        }
+        else if (idOfShip === "battleship") {
+            this.battleship.hit();
+        }
+        else if (idOfShip === "carrier") {
+            this.carrier.hit();
         }
     }
 }

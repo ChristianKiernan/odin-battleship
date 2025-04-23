@@ -104,3 +104,21 @@ test("placeShip 'right' sets the coordinates to 'full' in the gameboard", () => 
     expect(gameboard.board[4][3].value).toEqual("test4");
     expect(gameboard.board[2][2].value).toEqual("empty");
 });
+
+test("setGuessList registers a guess", () => {
+    const gameboard = new Gameboard();
+    gameboard.setBoard();
+    gameboard.setGuessList([0, 1])
+    expect(gameboard.guessList).toEqual([[0, 1]]);
+});
+
+test("receiveAttack registers a hit on destroyer", () => {
+    const initialCords = [2, 3];
+
+    const gameboard = new Gameboard();
+    gameboard.setBoard();
+    gameboard.placeShip(gameboard.destroyer, initialCords, "right");
+    gameboard.receiveAttack([2, 3]);
+
+    expect(gameboard.destroyer.hits).toEqual(1);
+});
