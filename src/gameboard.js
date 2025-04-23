@@ -1,4 +1,4 @@
-import { Node } from "./node.js"
+import { Node } from "./node.js";
 
 export class Gameboard {
     constructor() {
@@ -15,8 +15,56 @@ export class Gameboard {
             }
         }
     }
-    placeShip(ship) {
-        const shipCords = ship.coordinates;
-        this.board[shipCords[0]][shipCords[1]].value = "full";
+    placeShip(ship, initialCords, direction) {
+        const shipLength = ship.length;
+        const x = initialCords[0];
+        const y = initialCords[1];
+
+        if (this.directionIsValid(shipLength, x, y, direction)) {
+            if (direction === "down") {
+                for (let i = 0; i < shipLength; i++) {
+                    this.board[x][y + i].value = "full";
+                }
+            } else if (direction === "right") {
+                for (let i = 0; i < shipLength; i++) {
+                    this.board[x + i][y].value = "full";
+                }
+            } else if (direction === "left") {
+                for (let i = 0; i < shipLength; i++) {
+                    this.board[x - i][y].value = "full";
+                }
+            } else if (direction === "up") {
+                for (let i = 0; i < shipLength; i++) {
+                    this.board[x][y - i].value = "full";
+                }
+            }
+        }
+    }
+    directionIsValid(shipLength, xcord, ycord, direction) {
+        if (direction === "up") {
+            if (ycord - shipLength < -1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (direction === "down") {
+            if (ycord + shipLength > 10) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (direction === "left") {
+            if (xcord - shipLength < -1) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (direction === "right") {
+            if (xcord + shipLength > 10) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 }
