@@ -85,17 +85,16 @@ export class Gameboard {
             if (this.board[x][y].value === "empty") {
                 this.setGuessList(cords);
                 return "Miss";
-            }
-            else {
+            } else {
                 this.setHitList(cords);
                 this.sendHit(this.board[x][y].value);
                 return `Hit on ${this.board[x][y].value}`;
             }
         }
-        return "Invalid guess"
+        return "Invalid guess";
     }
     setGuessList(cords) {
-        this.guessList.push(cords); 
+        this.guessList.push(cords);
     }
     setHitList(cords) {
         this.hitList.push(cords);
@@ -106,18 +105,26 @@ export class Gameboard {
     sendHit(idOfShip) {
         if (idOfShip === "destroyer") {
             this.destroyer.hit();
-        }
-        else if (idOfShip === "submarine") {
+        } else if (idOfShip === "submarine") {
             this.submarine.hit();
-        }
-        else if (idOfShip === "cruiser") {
+        } else if (idOfShip === "cruiser") {
             this.cruiser.hit();
-        }
-        else if (idOfShip === "battleship") {
+        } else if (idOfShip === "battleship") {
             this.battleship.hit();
-        }
-        else if (idOfShip === "carrier") {
+        } else if (idOfShip === "carrier") {
             this.carrier.hit();
         }
+    }
+    gameOver() {
+        if (
+            this.destroyer.isSunk() &&
+            this.submarine.isSunk() &&
+            this.cruiser.isSunk() &&
+            this.battleship.isSunk() &&
+            this.carrier.isSunk()
+        ) {
+            return true;
+        }
+        return false;
     }
 }
