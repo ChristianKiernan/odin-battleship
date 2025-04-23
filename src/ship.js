@@ -3,6 +3,7 @@ export class Ship {
         this.length = length;
         this.hits = 0;
         this.sunk = false;
+        this.coordinates = null;
     }
     hit() {
         this.hits++;
@@ -13,6 +14,12 @@ export class Ship {
             return this.sunk;
         }
         return false;
+    }
+    setCoordinates(x, n) {
+        this.coordinates = [x][n];
+    }
+    resetCoordinates() {
+        this.coordinates = null;
     }
 }
 
