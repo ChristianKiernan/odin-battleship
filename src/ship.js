@@ -17,10 +17,9 @@ export class Ship {
         return false;
     }
     setCoordinates(x, y) {
-        return this.coordinates = [x, y];
+        return (this.coordinates = [x, y]);
     }
     resetCoordinates() {
         this.coordinates = null;
     }
 }
-
