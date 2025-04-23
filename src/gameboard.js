@@ -26,25 +26,26 @@ export class Gameboard {
     }
     placeShip(ship, initialCords, direction) {
         const shipLength = ship.length;
+        const shipId = ship.id;
         const x = initialCords[0];
         const y = initialCords[1];
 
         if (this.directionIsValid(shipLength, x, y, direction)) {
             if (direction === "down") {
                 for (let i = 0; i < shipLength; i++) {
-                    this.board[x][y + i].value = "full";
+                    this.board[x][y + i].value = `${shipId}`;
                 }
             } else if (direction === "right") {
                 for (let i = 0; i < shipLength; i++) {
-                    this.board[x + i][y].value = "full";
+                    this.board[x + i][y].value = `${shipId}`;
                 }
             } else if (direction === "left") {
                 for (let i = 0; i < shipLength; i++) {
-                    this.board[x - i][y].value = "full";
+                    this.board[x - i][y].value = `${shipId}`;
                 }
             } else if (direction === "up") {
                 for (let i = 0; i < shipLength; i++) {
-                    this.board[x][y - i].value = "full";
+                    this.board[x][y - i].value = `${shipId}`;
                 }
             }
         }
