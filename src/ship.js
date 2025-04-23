@@ -15,8 +15,8 @@ export class Ship {
         }
         return false;
     }
-    setCoordinates(x, n) {
-        this.coordinates = [x][n];
+    setCoordinates(x, y) {
+        return this.coordinates = [x, y];
     }
     resetCoordinates() {
         this.coordinates = null;
