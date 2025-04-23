@@ -6,14 +6,11 @@ export class Gameboard {
         this.rows = 10;
         this.columns = 10;
         this.board = [];
-        this.ships = this.setShips();
-    }
-    setShips() {
-        const destroyer = new Ship("destroyer", 2);
-        const submarine = new Ship("submarine", 3);
-        const cruiser = new Ship("cruiser", 3);
-        const battleship = new Ship("submarine", 4);
-        const carrier = new Ship("carrier", 5);
+        this.destroyer = new Ship("destroyer", 2);
+        this.submarine = new Ship("submarine", 3);
+        this.cruiser = new Ship("cruiser", 3);
+        this.battleship = new Ship("submarine", 4);
+        this.carrier = new Ship("carrier", 5);
     }
     setBoard() {
         for (let i = 0; i < this.rows; i++) {
