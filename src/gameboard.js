@@ -10,13 +10,13 @@ export class Gameboard {
         for (let i = 0; i < this.rows; i++) {
             this.board[i] = [];
             for (let j = 0; j < this.columns; j++) {
-                let node = new Node(null);
+                let node = new Node("empty");
                 this.board[i][j] = node;
             }
         }
     }
     placeShip(ship) {
         const shipCords = ship.coordinates;
-        return this.board[shipCords[0]][shipCords[1]] = "full";
+        this.board[shipCords[0]][shipCords[1]].value = "full";
     }
 }
