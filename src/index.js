@@ -2,7 +2,8 @@ import { Controller } from "./controller";
 
 const newGame = new Controller();
 setDomElements(newGame);
-setDynamicElements(newGame);
+setShipDisplay(newGame);
+addBtnEvents(newGame);
 
 function setDomElements(controllerObj) {
     const body = document.querySelector("body");
@@ -49,20 +50,32 @@ function setDomElements(controllerObj) {
 }
 
 function createBoardGrid(controlObj, parentDiv) {
-    for (let i = 0; i < newGame.playerOne.board.rows; i++) {
-        for (let j = 0; j < newGame.playerOne.board.columns; j++) {
+    for (let i = 0; i < controlObj.playerTwo.board.rows; i++) {
+        for (let j = 0; j < controlObj.playerTwo.board.columns; j++) {
             const boardSquare = document.createElement("button");
             boardSquare.classList.add("board-square");
-            boardSquare.setAttribute("id", `${i}${j}`);
+            boardSquare.setAttribute("id", `${i} ${j}`);
             parentDiv.appendChild(boardSquare);
-            boardSquare.addEventListener("click", () => {
-                newGame.playRound([i, j]);
-            });
         }
     }
 }
 
-function setDynamicElements(controllerObj) {
+function addBtnEvents(controlObj) {
+    const parentDiv = document.querySelector("#two");
+    const buttons = parentDiv.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            let btnId = button.getAttribute("id");
+            let btnCords = btnId.split(" ").map(Number);
+            if (controlObj.getActivePlayer() === controlObj.players[0]) {
+                playNewRound(controlObj, btnCords);
+            }
+        });
+    });
+}
+
+function setShipDisplay(controllerObj) {
     controllerObj.setUpOne();
     controllerObj.setUpTwo();
 
@@ -70,9 +83,19 @@ function setDynamicElements(controllerObj) {
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
             if (arr[i][j].value !== "empty") {
-                let square = document.getElementById(`${i}${j}`);
+                let square = document.getElementById(`${i} ${j}`);
                 square.style.backgroundColor = "lightblue";
             }
         }
+    }
+}
+
+function playNewRound(controllerObj, cords) {
+    console.log(controllerObj.playerTwo.board.receiveAttack(cords));
+    if (controllerObj.playerTwo.board.receiveAttack(cords) === "Miss") {
+        controllerObj.playerOne.setGuessList(cords);
+        console.log(getGuessList());
+    }
+    else if (controllerObj.playerTwo.board.receiveAttack(cords)) {
     }
 }

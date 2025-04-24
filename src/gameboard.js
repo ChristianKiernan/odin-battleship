@@ -78,35 +78,19 @@ export class Gameboard {
         }
     }
     receiveAttack(cords) {
-        if (!this.guessList.includes(cords)) {
-            const x = cords[0];
-            const y = cords[1];
+        const x = cords[0];
+        const y = cords[1];
 
-            if (this.board[x][y].value === "empty") {
-                this.setGuessList(cords);
-                return "Miss!";
-            } else {
-                this.setHitList(cords);
-                this.sendHit(this.board[x][y].value);
-                return `Hit on ${this.board[x][y].value}`;
-            }
+        if (this.board[x][y].value === "empty") {
+            this.board[x][y].value = "guessed";
+            return "Miss";
+        } else if (this.board[x][y].value === "guessed") {
+            return "Invalid";
+        } else {
+            this.sendHit(this.board[x][y].value);
+            this.board[x][y].value = "guessed";
+            return "Hit";
         }
-        return "Invalid guess";
-    }
-    setGuessList(cords) {
-        this.guessList.push(cords);
-    }
-    getGuessList() {
-        return this.guessList;
-    }
-    setHitList(cords) {
-        this.hitList.push(cords);
-    }
-    getHitList() {
-        return this.hitList;
-    }
-    resetGuessList() {
-        this.guessList = [];
     }
     sendHit(idOfShip) {
         if (idOfShip === "destroyer") {

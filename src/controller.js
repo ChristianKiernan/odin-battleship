@@ -9,6 +9,8 @@ export class Controller {
         this.activePlayer = this.players[0];
         this.gameOver = false;
         this.winner = null;
+        this.guessList = [];
+        this.hitList = [];
     }
     setUpOne() {
         this.playerOne.board.setBoard();
@@ -82,29 +84,42 @@ export class Controller {
             return "My turn :)";
         }
     }
-    playRound(coordinates) {
-        let defender;
-        if (this.activePlayer === "PlayerOne") {
-            defender = this.players[1];
-        } else {
-            defender = this.players[0];
-        }
-        this.setRoundMessage();
-        if (defender.board.receiveAttack(coordinates) !== "Miss!") {
-            this.activePlayer.board.setHitList(coordinates);
-        }
-        if (defender.board.gameOver) {
-            this.gameOver = true;
-            this.winner = this.activePlayer;
-            this.gameOverMessage();
-        }
-        this.activePlayer.board.setGuessList(coordinates);
-        this.switchTurns();
+    setGuessList(cords) {
+        this.guessList.push(cords);
     }
-    gameOverMessage() {
-        return `Game Over! ${this.winner} wins!`;
+    getGuessList() {
+        return this.guessList;
     }
-    getWinner() {
-        return this.winner;
+    setHitList(cords) {
+        this.hitList.push(cords);
+    }
+    getHitList() {
+        return this.hitList;
+    }
+    resetGuessList() {
+        this.guessList = [];
     }
 }
+//     playRound(coordinates) {
+//         let defender = this.players[1];
+//         if (this.activePlayer === this.players[1]) {
+//             defender = this.players[0];
+//         }
+//         if (defender.board.receiveAttack(coordinates) !== "Miss!") {
+//             this.activePlayer.board.setHitList(coordinates);
+//         }
+//         if (defender.board.gameOver) {
+//             this.gameOver = true;
+//             this.winner = this.activePlayer;
+//             this.gameOverMessage();
+//         }
+//         this.activePlayer.board.setGuessList(coordinates);
+//         //this.switchTurns();
+//     }
+//     gameOverMessage() {
+//         return `Game Over! ${this.winner} wins!`;
+//     }
+//     getWinner() {
+//         return this.winner;
+//     }
+// }
