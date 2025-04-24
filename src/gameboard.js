@@ -17,11 +17,11 @@ export class Gameboard {
     }
     setBoard() {
         for (let i = 0; i < this.rows; i++) {
-            this.board[i] = [];
+            const row = [];
             for (let j = 0; j < this.columns; j++) {
-                let node = new Node("empty");
-                this.board[i][j] = node;
+                row.push(new Node());
             }
+            this.board.push(row);
         }
     }
     placeShip(ship, initialCords, direction) {
@@ -132,5 +132,20 @@ export class Gameboard {
             return true;
         }
         return false;
+    }
+    getDestroyerObj() {
+        return this.destroyer;
+    }
+    getSubmarineObj() {
+        return this.submarine;
+    }
+    getCruiserObj() {
+        return this.cruiser;
+    }
+    getBattleShipObj() {
+        return this.battleship;
+    }
+    getCarrierObj() {
+        return this.carrier;
     }
 }
