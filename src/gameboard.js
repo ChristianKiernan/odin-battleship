@@ -84,7 +84,7 @@ export class Gameboard {
 
             if (this.board[x][y].value === "empty") {
                 this.setGuessList(cords);
-                return "Miss";
+                return "Miss!";
             } else {
                 this.setHitList(cords);
                 this.sendHit(this.board[x][y].value);
@@ -96,8 +96,14 @@ export class Gameboard {
     setGuessList(cords) {
         this.guessList.push(cords);
     }
+    getGuessList() {
+        return this.guessList;
+    }
     setHitList(cords) {
         this.hitList.push(cords);
+    }
+    getHitList() {
+        return this.hitList;
     }
     resetGuessList() {
         this.guessList = [];
