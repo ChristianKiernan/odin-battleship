@@ -47,15 +47,21 @@ export class Controller {
             let defender = players[0];
         }
         this.setRoundMessage();
-        defender.board.receiveAttack([0, 1]); //Display message in div
-        //Display hit/guess list in div as well
+        if (defender.board.receiveAttack([0, 1]) !== "Miss!") {
+            this.activePlayer.board.setHitList([0, 1]);
+        }
         if (defender.board.gameOver) {
             this.gameOver = true;
+            this.winner = this.activePlayer;
             this.gameOverMessage();
         }
+        this.activePlayer.board.setGuessList([0, 1]);
         this.switchTurns();
     }
     gameOverMessage() {
-        return `Game Over! ${this.activePlayer} wins!`;
+        return `Game Over! ${this.winner} wins!`;
+    }
+    getWinner() {
+        return this.winner;
     }
 }
