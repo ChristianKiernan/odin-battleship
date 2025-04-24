@@ -1,10 +1,9 @@
 import { Controller } from "./controller";
 
-setDomElements();
-// const newGame = new Controller();
-// newGame.playRound();
+const newGame = new Controller();
+setDomElements(newGame);
 
-function setDomElements() {
+function setDomElements(controllerObj) {
     const body = document.querySelector("body");
 
     const containerDiv = document.createElement("div");
@@ -13,15 +12,30 @@ function setDomElements() {
 
     const boardOneDiv = document.createElement("div");
     boardOneDiv.classList.add("board");
-    boardOneDiv.setAttribute("id", "one")
+    boardOneDiv.setAttribute("id", "one");
     containerDiv.appendChild(boardOneDiv);
 
     const messageBoard = document.createElement("div");
     messageBoard.classList.add("message");
+    messageBoard.innerHTML = "Welcome to Battleship! Place Your Ships";
     containerDiv.appendChild(messageBoard);
 
     const boardTwoDiv = document.createElement("div");
     boardTwoDiv.classList.add("board");
     boardTwoDiv.setAttribute("id", "two");
     containerDiv.appendChild(boardTwoDiv);
+
+    createBoardGrid(controllerObj, boardOneDiv);
+    createBoardGrid(controllerObj, boardTwoDiv);
+}
+
+function createBoardGrid(controlObj, parentDiv) {
+    for (let i = 0; i < newGame.playerOne.board.rows; i++) {
+        for (let j = 0; j < newGame.playerOne.board.columns; j++) {
+            const boardSquare = document.createElement("button");
+            boardSquare.classList.add("board-square");
+            boardSquare.setAttribute("id", `${[i, j]}`);
+            parentDiv.appendChild(boardSquare);
+        }
+    }
 }
