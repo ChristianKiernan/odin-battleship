@@ -1,9 +1,8 @@
 import { Controller } from "./controller";
 
 const newGame = new Controller();
-newGame.setUpOne();
-newGame.setUpTwo();
 setDomElements(newGame);
+setDynamicElements(newGame);
 
 function setDomElements(controllerObj) {
     const body = document.querySelector("body");
@@ -18,7 +17,7 @@ function setDomElements(controllerObj) {
     containerDiv.appendChild(playerOneDiv);
 
     const playerOneHead = document.createElement("h2");
-    playerOneHead.innerHTML = "Coordinates Guessed:"
+    playerOneHead.innerHTML = "Coordinates Guessed:";
     playerOneDiv.appendChild(playerOneHead);
 
     const boardOneDiv = document.createElement("div");
@@ -37,7 +36,7 @@ function setDomElements(controllerObj) {
     containerDiv.appendChild(playerTwoDiv);
 
     const playerTwoHead = document.createElement("h2");
-    playerTwoHead.innerHTML = "Coordinates Guessed:"
+    playerTwoHead.innerHTML = "Coordinates Guessed:";
     playerTwoDiv.appendChild(playerTwoHead);
 
     const boardTwoDiv = document.createElement("div");
@@ -54,11 +53,26 @@ function createBoardGrid(controlObj, parentDiv) {
         for (let j = 0; j < newGame.playerOne.board.columns; j++) {
             const boardSquare = document.createElement("button");
             boardSquare.classList.add("board-square");
-            boardSquare.setAttribute("id", `${i}-${j}`);
+            boardSquare.setAttribute("id", `${i}${j}`);
             parentDiv.appendChild(boardSquare);
             boardSquare.addEventListener("click", () => {
                 newGame.playRound([i, j]);
-            })
+            });
+        }
+    }
+}
+
+function setDynamicElements(controllerObj) {
+    controllerObj.setUpOne();
+    controllerObj.setUpTwo();
+
+    let arr = controllerObj.playerOne.board.board;
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            if (arr[i][j].value !== "empty") {
+                let square = document.getElementById(`${i}${j}`);
+                square.style.backgroundColor = "lightblue";
+            }
         }
     }
 }
