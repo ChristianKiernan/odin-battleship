@@ -1,5 +1,8 @@
 export class Node {
-    constructor(value) {
-        this.value = value;
+    constructor() {
+        this.value = "empty";
+    }
+    setValue(newVal) {
+        this.value = newVal;
     }
 }
