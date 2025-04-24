@@ -5,8 +5,8 @@ export class Controller {
     constructor() {
         this.playerOne = new Player("real");
         this.playerTwo = new Player("computer");
-        this.players = [playerOne, playerTwo];
-        this.activePlayer = players[0];
+        this.players = [this.playerOne, this.playerTwo];
+        this.activePlayer = this.players[0];
         this.gameOver = false;
         this.winner = null;
     }
