@@ -36,6 +36,9 @@ function createBoardGrid(controlObj, parentDiv) {
             boardSquare.classList.add("board-square");
             boardSquare.setAttribute("id", `${[i, j]}`);
             parentDiv.appendChild(boardSquare);
+            boardSquare.addEventListener("click", () => {
+                newGame.playRound(`${[i, j]}`);
+            })
         }
     }
 }
