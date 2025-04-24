@@ -83,13 +83,13 @@ export class Gameboard {
 
         if (this.board[x][y].value === "empty") {
             this.board[x][y].value = "guessed";
-            return "Miss";
+            return 0;
         } else if (this.board[x][y].value === "guessed") {
-            return "Invalid";
+            return 2;
         } else {
             this.sendHit(this.board[x][y].value);
             this.board[x][y].value = "guessed";
-            return "Hit";
+            return 1;
         }
     }
     sendHit(idOfShip) {

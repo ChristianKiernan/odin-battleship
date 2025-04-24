@@ -1,8 +1,8 @@
 import { Gameboard } from "./gameboard";
 
 export class Player {
-    constructor(type) {
-        this.type = type;
+    constructor(mode) {
+        this.mode = mode;
         this.board = new Gameboard();
         this.guessList = [];
     }
@@ -12,5 +12,8 @@ export class Player {
             Type: type
         }
         this.guessList.push(guess);
+    }
+    getGuessList() {
+        return this.guessList;
     }
 }

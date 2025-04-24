@@ -91,11 +91,15 @@ function setShipDisplay(controllerObj) {
 }
 
 function playNewRound(controllerObj, cords) {
-    console.log(controllerObj.playerTwo.board.receiveAttack(cords));
-    if (controllerObj.playerTwo.board.receiveAttack(cords) === "Miss") {
-        controllerObj.playerOne.setGuessList(cords);
-        console.log(getGuessList());
+    const playerOneDiv = document.querySelector("#p1-list");
+    let output = (controllerObj.playerTwo.board.receiveAttack(cords));
+    //Return value of 0 signifies a miss
+    if (output === 0) {
+        controllerObj.playerOne.setGuessList(cords, "Miss");
     }
-    else if (controllerObj.playerTwo.board.receiveAttack(cords)) {
+    //Return value of 1 signifies a hit
+    else if (output === 1){
+        controllerObj.playerOne.setGuessList(cords, "Hit");
     }
+    playerOneDiv.innerHTML = `${controllerObj.playerOne.getGuessList()}`;
 }
