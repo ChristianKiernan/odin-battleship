@@ -12,26 +12,68 @@ export class Controller {
     }
     setUpOne() {
         this.playerOne.board.setBoard();
-        this.playerOne.board.placeShip("submarine", [0, 1], "down");
-        this.playerOne.board.placeShip("cruiser", [0, 9], "right");
-        this.playerOne.board.placeShip("battleship", [5, 5], "up");
-        this.playerOne.board.placeShip("carrier", [9, 9], "left");
-        this.playerOne.board.placeShip("destroyer", [8, 0], "down");
+        this.playerOne.board.placeShip(
+            this.playerOne.board.getSubmarineObj(),
+            [0, 1],
+            "down"
+        );
+        this.playerOne.board.placeShip(
+            this.playerOne.board.getCruiserObj(),
+            [0, 9],
+            "right"
+        );
+        this.playerOne.board.placeShip(
+            this.playerOne.board.getBattleShipObj(),
+            [5, 5],
+            "up"
+        );
+        this.playerOne.board.placeShip(
+            this.playerOne.board.getCarrierObj(),
+            [9, 9],
+            "left"
+        );
+        this.playerOne.board.placeShip(
+            this.playerOne.board.getDestroyerObj(),
+            [8, 0],
+            "down"
+        );
     }
     setUpTwo() {
         this.playerTwo.board.setBoard();
-        this.playerTwo.board.placeShip("submarine", [0, 1], "down");
-        this.playerTwo.board.placeShip("cruiser", [0, 9], "right");
-        this.playerTwo.board.placeShip("battleship", [4, 4], "up");
-        this.playerTwo.board.placeShip("carrier", [9, 9], "left");
-        this.playerTwo.board.placeShip("destroyer", [8, 0], "down");
+        this.playerTwo.board.placeShip(
+            this.playerTwo.board.getSubmarineObj(),
+            [0, 1],
+            "down"
+        );
+        this.playerTwo.board.placeShip(
+            this.playerTwo.board.getCruiserObj(),
+            [0, 9],
+            "right"
+        );
+        this.playerTwo.board.placeShip(
+            this.playerTwo.board.getBattleShipObj(),
+            [4, 4],
+            "up"
+        );
+        this.playerTwo.board.placeShip(
+            this.playerTwo.board.getCarrierObj(),
+            [9, 9],
+            "left"
+        );
+        this.playerTwo.board.placeShip(
+            this.playerTwo.board.getDestroyerObj(),
+            [8, 0],
+            "down"
+        );
     }
     getActivePlayer() {
         return this.activePlayer;
     }
     switchTurns() {
         this.activePlayer =
-            this.activePlayer === this.players[0] ? this.players[1] : this.players[0];
+            this.activePlayer === this.players[0]
+                ? this.players[1]
+                : this.players[0];
     }
     setRoundMessage() {
         if (this.activePlayer === "PlayerOne") {
