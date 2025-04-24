@@ -1,6 +1,7 @@
 import { Controller } from "./controller";
 
 const newGame = new Controller();
+newGame.setUpOne();
 setDomElements(newGame);
 
 function setDomElements(controllerObj) {
@@ -34,10 +35,10 @@ function createBoardGrid(controlObj, parentDiv) {
         for (let j = 0; j < newGame.playerOne.board.columns; j++) {
             const boardSquare = document.createElement("button");
             boardSquare.classList.add("board-square");
-            boardSquare.setAttribute("id", `${[i, j]}`);
+            boardSquare.setAttribute("id", `${i}-${j}`);
             parentDiv.appendChild(boardSquare);
             boardSquare.addEventListener("click", () => {
-                newGame.playRound(`${[i, j]}`);
+                newGame.playRound([i, j]);
             })
         }
     }
