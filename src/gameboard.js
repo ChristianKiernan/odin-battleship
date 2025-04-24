@@ -8,6 +8,7 @@ export class Gameboard {
         this.board = [];
         this.guessList = [];
         this.hitList = [];
+        this.currCords = [];
 
         this.destroyer = new Ship("destroyer", 2);
         this.submarine = new Ship("submarine", 3);
@@ -147,5 +148,11 @@ export class Gameboard {
     }
     getCarrierObj() {
         return this.carrier;
+    }
+    setCurrCords(x, y) {
+        this.currCords = [x, y];
+    }
+    getCurrCords() {
+        return this.currCords;
     }
 }
