@@ -1,14 +1,14 @@
 import "./styles.css";
-import { Ship } from "./ship";
-import { Gameboard } from "./gameboard";
 import { Player } from "./player";
 
-class Controller {
+export class Controller {
     constructor() {
         this.playerOne = new Player("real");
         this.playerTwo = new Player("computer");
         this.players = [playerOne, playerTwo];
         this.activePlayer = players[0];
+        this.gameOver = false;
+        this.winner = null;
     }
     setUpOne() {
         playerOne.board.setBoard();
@@ -33,7 +33,7 @@ class Controller {
         this.activePlayer =
             this.activePlayer === players[0] ? players[1] : players[0];
     }
-    setGameMessage() {
+    setRoundMessage() {
         if (this.activePlayer === "PlayerOne") {
             return "Click a square to attack, human";
         } else {
@@ -41,6 +41,21 @@ class Controller {
         }
     }
     playRound() {
-        setGameMessage();
+        if (this.activePlayer === "PlayerOne") {
+            let defender = players[1];
+        } else {
+            let defender = players[0];
+        }
+        this.setRoundMessage();
+        defender.board.receiveAttack([0, 1]); //Display message in div
+        //Display hit/guess list in div as well
+        if (defender.board.gameOver) {
+            this.gameOver = true;
+            this.gameOverMessage();
+        }
+        this.switchTurns();
+    }
+    gameOverMessage() {
+        return `Game Over! ${this.activePlayer} wins!`;
     }
 }
