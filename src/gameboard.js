@@ -6,8 +6,6 @@ export class Gameboard {
         this.rows = 10;
         this.columns = 10;
         this.board = [];
-        this.guessList = [];
-        this.hitList = [];
 
         this.destroyer = new Ship("destroyer", 2);
         this.submarine = new Ship("submarine", 3);
@@ -82,14 +80,14 @@ export class Gameboard {
         const y = cords[1];
 
         if (this.board[x][y].value === "empty") {
-            this.board[x][y].value = "guessed";
-            return 0;
+            this.board[x][y].setValue("guessed");
+            return "miss";
         } else if (this.board[x][y].value === "guessed") {
-            return 2;
+            return "invalid";
         } else {
             this.sendHit(this.board[x][y].value);
-            this.board[x][y].value = "guessed";
-            return 1;
+            this.board[x][y].setValue("guessed");
+            return "hit";
         }
     }
     sendHit(idOfShip) {

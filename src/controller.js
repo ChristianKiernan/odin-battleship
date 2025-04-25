@@ -9,8 +9,6 @@ export class Controller {
         this.activePlayer = this.players[0];
         this.gameOver = false;
         this.winner = null;
-        this.guessList = [];
-        this.hitList = [];
     }
     setUpOne() {
         this.playerOne.board.setBoard();
@@ -84,42 +82,5 @@ export class Controller {
             return "My turn :)";
         }
     }
-    setGuessList(cords) {
-        this.guessList.push(cords);
-    }
-    getGuessList() {
-        return this.guessList;
-    }
-    setHitList(cords) {
-        this.hitList.push(cords);
-    }
-    getHitList() {
-        return this.hitList;
-    }
-    resetGuessList() {
-        this.guessList = [];
-    }
 }
-//     playRound(coordinates) {
-//         let defender = this.players[1];
-//         if (this.activePlayer === this.players[1]) {
-//             defender = this.players[0];
-//         }
-//         if (defender.board.receiveAttack(coordinates) !== "Miss!") {
-//             this.activePlayer.board.setHitList(coordinates);
-//         }
-//         if (defender.board.gameOver) {
-//             this.gameOver = true;
-//             this.winner = this.activePlayer;
-//             this.gameOverMessage();
-//         }
-//         this.activePlayer.board.setGuessList(coordinates);
-//         //this.switchTurns();
-//     }
-//     gameOverMessage() {
-//         return `Game Over! ${this.winner} wins!`;
-//     }
-//     getWinner() {
-//         return this.winner;
-//     }
-// }
+

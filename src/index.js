@@ -165,15 +165,16 @@ function setShipDisplay(controllerObj) {
 }
 
 function playNewRound(controllerObj, cords) {
-    const p1Div = document.querySelector("#p1-ui");
     let output = controllerObj.playerTwo.board.receiveAttack(cords);
-    //Return value of 0 signifies a miss
-    if (output === 0) {
+    if (output === "miss") {
         controllerObj.playerOne.setGuessList(cords, "Miss");
     }
-    //Return value of 1 signifies a hit
-    else if (output === 1) {
+    else if (output === "hit") {
         controllerObj.playerOne.setGuessList(cords, "Hit");
+    }
+    else if (output === "invalid") {
+        console.log("try again");
+        return;
     }
     const guesses = controllerObj.playerOne.getGuessList();
     console.log(guesses);
