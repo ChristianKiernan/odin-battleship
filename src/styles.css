@@ -17,7 +17,7 @@ body {
     width: 200px;
 }
 
-.board-square, 
+.board-square,
 .square-red,
 .square-green {
     border: 1px solid black;
@@ -187,4 +187,3 @@ h3,
 p {
     margin: 0px;
 }
-
