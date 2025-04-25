@@ -78,7 +78,7 @@ function setDomElements(controllerObj) {
 
     const playerTwoPara = document.createElement("div");
     playerTwoPara.classList.add("guess-text");
-    playerTwoPara.setAttribute("id", "p2-ui")
+    playerTwoPara.setAttribute("id", "p2-ui");
     playerTwoDiv.appendChild(playerTwoPara);
 
     const centerConsole = document.createElement("div");
@@ -92,7 +92,7 @@ function setDomElements(controllerObj) {
     const centerText = document.createElement("p");
     centerText.classList.add("center-console-text");
     centerConsole.appendChild(centerText);
-    
+
     const boardTwoLeft = document.createElement("div");
     boardTwoLeft.classList.add("board-coords");
     boardTwoLeft.setAttribute("id", "two-left");
@@ -186,7 +186,7 @@ function playNewRound(controllerObj, cords) {
         textDiv.innerHTML = `Miss! Your turn, ${
             controllerObj.getActivePlayer().name
         }.`;
-        computerAttack(controllerObj, textDiv);
+        getRandCoords(controllerObj, textDiv);
         return "miss";
     } else if (output === "hit") {
         controllerObj.playerOne.setGuessList(cords, "Hit");
@@ -195,7 +195,7 @@ function playNewRound(controllerObj, cords) {
         textDiv.innerHTML = `Hit! Your turn, ${
             controllerObj.getActivePlayer().name
         }.`;
-        computerAttack(controllerObj, textDiv);
+        getRandCoords(controllerObj, textDiv);
         return "hit";
     } else if (output === "invalid") {
         textDiv.innerHTML = "Try attacking at different coordinates.";
@@ -203,18 +203,12 @@ function playNewRound(controllerObj, cords) {
     }
 }
 
-function computerAttack(controllerObj, textDiv) {
-    let cords = [];
-    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
-    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
-
-    cords.push(xcord, ycord);
-    console.log(cords);
-
+function computerAttack(cords, controllerObj, textDiv) {
     let output = controllerObj.playerOne.board.receiveAttack(cords);
 
     if (output === "miss") {
         controllerObj.playerTwo.setGuessList(cords, "Miss");
+        controllerObj.playerTwo.setNumericList(cords);
         updateGuessDisplayTwo(controllerObj);
         controllerObj.switchTurns();
         textDiv.innerHTML = `Miss! Your turn, ${
@@ -223,16 +217,35 @@ function computerAttack(controllerObj, textDiv) {
         return "miss";
     } else if (output === "hit") {
         controllerObj.playerTwo.setGuessList(cords, "Hit");
+        controllerObj.playerTwo.setNumericList(cords);
         updateGuessDisplayTwo(controllerObj);
         controllerObj.switchTurns();
         textDiv.innerHTML = `Hit! Your turn, ${
             controllerObj.getActivePlayer().name
         }.`;
         return "hit";
-    } else if (output === "invalid") {
-        textDiv.innerHTML = "Try attacking at different coordinates.";
-        return;
     }
+    getRandCoords(controllerObj, textDiv);
+}
+
+function getRandCoords(controllerObj, textDiv) {
+    let numericList = controllerObj.playerTwo.getNumericList();
+    let inequality = true;
+    let coords = [];
+    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
+    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
+    coords.push(xcord, ycord);
+    while (inequality === true)
+        for (let i = 0; i < numericList.length; i ++) {
+            if(coords[0] == numericList[i].xCord && coords[1] == numericList[i].yCord) {
+                    coords = [];
+                    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
+                    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
+                    coords.push(xcord, ycord);
+            }
+        inequality = false;
+    }
+    computerAttack(coords, controllerObj, textDiv)
 }
 
 function updateGuessDisplayOne(controllerObj) {

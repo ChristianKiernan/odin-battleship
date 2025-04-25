@@ -6,6 +6,7 @@ export class Player {
         this.name = name;
         this.board = new Gameboard();
         this.guessList = [];
+        this.numericList =[];
     }
     setGuessList(cords, type) {
         const xcord = cords[0];
@@ -21,5 +22,17 @@ export class Player {
     }
     getGuessList() {
         return this.guessList;
+    }
+    setNumericList(cords) {
+        const xcord = cords[0];
+        const ycord = cords[1];
+        const numCords = {
+            xCord: xcord,
+            yCord: ycord,
+        }
+        this.numericList.push(numCords);
+    }
+    getNumericList() {
+        return this.numericList;
     }
 }
