@@ -8,7 +8,7 @@ export class Player {
     }
     setGuessList(cords, type) {
         const guess = {
-            Cords: cords,
+            Coords: cords,
             Type: type
         }
         this.guessList.push(guess);

@@ -17,6 +17,11 @@ function setDomElements(controllerObj) {
     playerOneDiv.setAttribute("id", "p1-list");
     containerDiv.appendChild(playerOneDiv);
 
+    const playerOnePara = document.createElement("div");
+    playerOnePara.classList.add("guess-text");
+    playerOnePara.setAttribute("id", "p1-ui");
+    playerOneDiv.appendChild(playerOnePara);
+
     const playerOneHead = document.createElement("h2");
     playerOneHead.innerHTML = "Coordinates Guessed:";
     playerOneDiv.appendChild(playerOneHead);
@@ -39,6 +44,14 @@ function setDomElements(controllerObj) {
     const playerTwoHead = document.createElement("h2");
     playerTwoHead.innerHTML = "Coordinates Guessed:";
     playerTwoDiv.appendChild(playerTwoHead);
+
+    const playerTwoPara = document.createElement("div");
+    playerTwoPara.classList.add("guess-text");
+    playerTwoDiv.appendChild(playerTwoPara);
+
+    const playerTwoSubPara = document.createElement("div");
+    playerTwoSubPara.classList.add("guess-text");
+    playerTwoPara.appendChild(playerTwoSubPara);
 
     const boardTwoDiv = document.createElement("div");
     boardTwoDiv.classList.add("board");
@@ -91,15 +104,28 @@ function setShipDisplay(controllerObj) {
 }
 
 function playNewRound(controllerObj, cords) {
-    const playerOneDiv = document.querySelector("#p1-list");
-    let output = (controllerObj.playerTwo.board.receiveAttack(cords));
+    let output = controllerObj.playerTwo.board.receiveAttack(cords);
     //Return value of 0 signifies a miss
     if (output === 0) {
         controllerObj.playerOne.setGuessList(cords, "Miss");
     }
     //Return value of 1 signifies a hit
-    else if (output === 1){
+    else if (output === 1) {
         controllerObj.playerOne.setGuessList(cords, "Hit");
     }
-    playerOneDiv.innerHTML = `${controllerObj.playerOne.getGuessList()}`;
+    const guesses = controllerObj.playerOne.getGuessList();
+    console.log(guesses);
+    for (let i = 0; i < guesses.length; i++) {
+        createSubPara().innerHTML = `Coords: (${guesses[i].Coords})`;
+        createSubPara().innerHTML = `Result: ${guesses[i].Type}`;
+    }
+}
+
+function createSubPara() {
+    const pOneDiv = document.querySelector("#p1-ui");
+
+    const playerOneSubPara = document.createElement("p");
+    playerOneSubPara.classList.add("guess-subtext");
+    pOneDiv.appendChild(playerOneSubPara);
+    return playerOneSubPara;
 }
