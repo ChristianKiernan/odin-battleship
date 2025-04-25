@@ -12,37 +12,57 @@ function setDomElements(controllerObj) {
     containerDiv.classList.add("container");
     document.body.appendChild(containerDiv);
 
+    const guessContainer = document.createElement("div");
+    guessContainer.classList.add("guess-container");
+    containerDiv.appendChild(guessContainer);
+
+    const boardContainer = document.createElement("div");
+    boardContainer.classList.add("board-container");
+    containerDiv.appendChild(boardContainer);
+
     const playerOneDiv = document.createElement("div");
     playerOneDiv.classList.add("guess-list");
     playerOneDiv.setAttribute("id", "p1-list");
-    containerDiv.appendChild(playerOneDiv);
+    guessContainer.appendChild(playerOneDiv);
 
     const playerOnePara = document.createElement("div");
     playerOnePara.classList.add("guess-text");
     playerOnePara.setAttribute("id", "p1-ui");
     playerOneDiv.appendChild(playerOnePara);
 
-    const playerOneHead = document.createElement("h2");
-    playerOneHead.innerHTML = "Coordinates Guessed:";
+    const playerOneHead = document.createElement("h3");
+    playerOneHead.innerHTML = "Coordinates Log:";
     playerOneDiv.appendChild(playerOneHead);
+
+    const boardOneLeft = document.createElement("div");
+    boardOneLeft.classList.add("board-coords");
+    boardOneLeft.setAttribute("id", "one-left");
+    boardOneLeft.innerHTML = "ABCDEFGHIJ"
+    boardContainer.appendChild(boardOneLeft);
+
+    const boardOneTop = document.createElement("div");
+    boardOneTop.classList.add("board-coords");
+    boardOneTop.setAttribute("id", "one-top");
+    boardOneTop.innerHTML = "0123456789"
+    boardContainer.appendChild(boardOneTop);
 
     const boardOneDiv = document.createElement("div");
     boardOneDiv.classList.add("board");
     boardOneDiv.setAttribute("id", "one");
-    containerDiv.appendChild(boardOneDiv);
+    boardContainer.appendChild(boardOneDiv);
 
-    const messageBoard = document.createElement("div");
-    messageBoard.classList.add("message");
-    messageBoard.innerHTML = "Welcome to Battleship! Place Your Ships";
-    containerDiv.appendChild(messageBoard);
+    // const messageBoard = document.createElement("div");
+    // messageBoard.classList.add("message");
+    // messageBoard.innerHTML = "Welcome to Battleship! Place Your Ships";
+    // containerDiv.appendChild(messageBoard);
 
     const playerTwoDiv = document.createElement("div");
     playerTwoDiv.classList.add("guess-list");
     playerTwoDiv.setAttribute("id", "p2-list");
-    containerDiv.appendChild(playerTwoDiv);
+    guessContainer.appendChild(playerTwoDiv);
 
-    const playerTwoHead = document.createElement("h2");
-    playerTwoHead.innerHTML = "Coordinates Guessed:";
+    const playerTwoHead = document.createElement("h3");
+    playerTwoHead.innerHTML = "Coordinates Log:";
     playerTwoDiv.appendChild(playerTwoHead);
 
     const playerTwoPara = document.createElement("div");
@@ -53,10 +73,22 @@ function setDomElements(controllerObj) {
     playerTwoSubPara.classList.add("guess-text");
     playerTwoPara.appendChild(playerTwoSubPara);
 
+    const boardTwoLeft = document.createElement("div");
+    boardTwoLeft.classList.add("board-coords");
+    boardTwoLeft.setAttribute("id", "two-left");
+    boardTwoLeft.innerHTML = "ABCDEFGHIJ"
+    boardContainer.appendChild(boardTwoLeft);
+
+    const boardTwoTop = document.createElement("div");
+    boardTwoTop.classList.add("board-coords");
+    boardTwoTop.setAttribute("id", "two-top");
+    boardTwoTop.innerHTML = "0123456789"
+    boardContainer.appendChild(boardTwoTop);
+
     const boardTwoDiv = document.createElement("div");
     boardTwoDiv.classList.add("board");
     boardTwoDiv.setAttribute("id", "two");
-    containerDiv.appendChild(boardTwoDiv);
+    boardContainer.appendChild(boardTwoDiv);
 
     createBoardGrid(controllerObj, boardOneDiv);
     createBoardGrid(controllerObj, boardTwoDiv);
@@ -104,6 +136,7 @@ function setShipDisplay(controllerObj) {
 }
 
 function playNewRound(controllerObj, cords) {
+    const p1Div = document.querySelector("#p1-ui");
     let output = controllerObj.playerTwo.board.receiveAttack(cords);
     //Return value of 0 signifies a miss
     if (output === 0) {
@@ -115,9 +148,8 @@ function playNewRound(controllerObj, cords) {
     }
     const guesses = controllerObj.playerOne.getGuessList();
     console.log(guesses);
-    for (let i = 0; i < guesses.length; i++) {
-        createSubPara().innerHTML = `Coords: (${guesses[i].Coords})`;
-        createSubPara().innerHTML = `Result: ${guesses[i].Type}`;
+    for (let i = guesses.length - 1; i < guesses.length; i++) {
+        createSubPara().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
     }
 }
 
