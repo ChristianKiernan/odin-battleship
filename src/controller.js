@@ -3,10 +3,9 @@ import { Player } from "./player";
 
 export class Controller {
     constructor() {
-        this.playerOne = new Player("real");
-        this.playerTwo = new Player("computer");
-        this.players = [this.playerOne, this.playerTwo];
-        this.activePlayer = this.players[0];
+        this.playerOne = new Player("real", "Player One");
+        this.playerTwo = new Player("computer", "Player Two");
+        this.activePlayer = this.playerOne;
         this.gameOver = false;
         this.winner = null;
     }
@@ -71,9 +70,9 @@ export class Controller {
     }
     switchTurns() {
         this.activePlayer =
-            this.activePlayer === this.players[0]
-                ? this.players[1]
-                : this.players[0];
+            this.activePlayer === this.playerOne
+                ? this.playerTwo
+                : this.playerOne;
     }
     setRoundMessage() {
         if (this.activePlayer === "PlayerOne") {

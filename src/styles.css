@@ -17,8 +17,18 @@ body {
     width: 200px;
 }
 
-.board-square {
+.board-square, 
+.square-red,
+.square-green {
     border: 1px solid black;
+    background-color: #ffffff;
+}
+.square-green {
+    background-color: green;
+}
+
+.square-red {
+    background-color: red;
 }
 
 #one {
@@ -53,18 +63,25 @@ body {
 .center-console {
     border-radius: 10px;
     background-color: black;
-    color: white;
+    color: #ffffff;
     display: grid;
-    justify-content: center;
     grid-column: 2;
     grid-row: 1 / 3;
+    grid-template-rows: 0.25fr 0.75fr;
     margin-left: 249px;
     margin-bottom: 20px;
     margin-right: 35px;
 }
 
+.center-console-text {
+    display: flex;
+    justify-content: center;
+    grid-row: 2;
+}
+
 .center-console > h3 {
     margin-top: 5px;
+    text-align: center;
 }
 
 .guess-container {
@@ -170,3 +187,4 @@ h3,
 p {
     margin: 0px;
 }
+

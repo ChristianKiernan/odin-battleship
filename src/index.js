@@ -78,6 +78,7 @@ function setDomElements(controllerObj) {
 
     const playerTwoPara = document.createElement("div");
     playerTwoPara.classList.add("guess-text");
+    playerTwoPara.setAttribute("id", "p2-ui")
     playerTwoDiv.appendChild(playerTwoPara);
 
     const centerConsole = document.createElement("div");
@@ -88,10 +89,10 @@ function setDomElements(controllerObj) {
     consoleTitle.innerHTML = "Battle Console";
     centerConsole.appendChild(consoleTitle);
 
-    const playerTwoSubPara = document.createElement("div");
-    playerTwoSubPara.classList.add("guess-text");
-    playerTwoPara.appendChild(playerTwoSubPara);
-
+    const centerText = document.createElement("p");
+    centerText.classList.add("center-console-text");
+    centerConsole.appendChild(centerText);
+    
     const boardTwoLeft = document.createElement("div");
     boardTwoLeft.classList.add("board-coords");
     boardTwoLeft.setAttribute("id", "two-left");
@@ -127,7 +128,12 @@ function createBoardGrid(controlObj, parentDiv) {
     for (let i = 0; i < controlObj.playerTwo.board.rows; i++) {
         for (let j = 0; j < controlObj.playerTwo.board.columns; j++) {
             const boardSquare = document.createElement("button");
-            boardSquare.classList.add("board-square");
+            boardSquare.classList.add(
+                "board-square",
+                "square-red",
+                "square-green"
+            );
+            boardSquare.setAttribute("class", "board-square");
             boardSquare.setAttribute("id", `${i} ${j}`);
             parentDiv.appendChild(boardSquare);
         }
@@ -142,8 +148,13 @@ function addBtnEvents(controlObj) {
         button.addEventListener("click", () => {
             let btnId = button.getAttribute("id");
             let btnCords = btnId.split(" ").map(Number);
-            if (controlObj.getActivePlayer() === controlObj.players[0]) {
-                playNewRound(controlObj, btnCords);
+            if (controlObj.getActivePlayer().name === "Player One") {
+                const outcome = playNewRound(controlObj, btnCords);
+                if (outcome === "miss") {
+                    button.classList.toggle("square-red");
+                } else if (outcome === "hit") {
+                    button.classList.toggle("square-green");
+                }
             }
         });
     });
@@ -165,29 +176,93 @@ function setShipDisplay(controllerObj) {
 }
 
 function playNewRound(controllerObj, cords) {
+    let textDiv = document.querySelector(".center-console-text");
     let output = controllerObj.playerTwo.board.receiveAttack(cords);
+
     if (output === "miss") {
         controllerObj.playerOne.setGuessList(cords, "Miss");
-    }
-    else if (output === "hit") {
+        updateGuessDisplayOne(controllerObj);
+        controllerObj.switchTurns();
+        textDiv.innerHTML = `Miss! Your turn, ${
+            controllerObj.getActivePlayer().name
+        }.`;
+        computerAttack(controllerObj, textDiv);
+        return "miss";
+    } else if (output === "hit") {
         controllerObj.playerOne.setGuessList(cords, "Hit");
-    }
-    else if (output === "invalid") {
-        console.log("try again");
+        updateGuessDisplayOne(controllerObj);
+        controllerObj.switchTurns();
+        textDiv.innerHTML = `Hit! Your turn, ${
+            controllerObj.getActivePlayer().name
+        }.`;
+        computerAttack(controllerObj, textDiv);
+        return "hit";
+    } else if (output === "invalid") {
+        textDiv.innerHTML = "Try attacking at different coordinates.";
         return;
-    }
-    const guesses = controllerObj.playerOne.getGuessList();
-    console.log(guesses);
-    for (let i = guesses.length - 1; i < guesses.length; i++) {
-        createSubPara().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
     }
 }
 
-function createSubPara() {
+function computerAttack(controllerObj, textDiv) {
+    let cords = [];
+    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
+    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
+
+    cords.push(xcord, ycord);
+    console.log(cords);
+
+    let output = controllerObj.playerOne.board.receiveAttack(cords);
+
+    if (output === "miss") {
+        controllerObj.playerTwo.setGuessList(cords, "Miss");
+        updateGuessDisplayTwo(controllerObj);
+        controllerObj.switchTurns();
+        textDiv.innerHTML = `Miss! Your turn, ${
+            controllerObj.getActivePlayer().name
+        }.`;
+        return "miss";
+    } else if (output === "hit") {
+        controllerObj.playerTwo.setGuessList(cords, "Hit");
+        updateGuessDisplayTwo(controllerObj);
+        controllerObj.switchTurns();
+        textDiv.innerHTML = `Hit! Your turn, ${
+            controllerObj.getActivePlayer().name
+        }.`;
+        return "hit";
+    } else if (output === "invalid") {
+        textDiv.innerHTML = "Try attacking at different coordinates.";
+        return;
+    }
+}
+
+function updateGuessDisplayOne(controllerObj) {
+    const guesses = controllerObj.playerOne.getGuessList();
+    for (let i = guesses.length - 1; i < guesses.length; i++) {
+        createSubParaOne().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
+    }
+}
+
+function updateGuessDisplayTwo(controllerObj) {
+    const guesses = controllerObj.playerTwo.getGuessList();
+    for (let i = guesses.length - 1; i < guesses.length; i++) {
+        createSubParaTwo().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
+    }
+}
+
+function createSubParaOne() {
     const pOneDiv = document.querySelector("#p1-ui");
 
     const playerOneSubPara = document.createElement("p");
     playerOneSubPara.classList.add("guess-subtext");
     pOneDiv.appendChild(playerOneSubPara);
     return playerOneSubPara;
+}
+
+function createSubParaTwo() {
+    const pTwoDiv = document.querySelector("#p2-ui");
+
+    const playerTwoSubPara = document.createElement("p");
+    playerTwoSubPara.classList.add("guess-subtext");
+    pTwoDiv.appendChild(playerTwoSubPara);
+    return playerTwoSubPara;
 }
