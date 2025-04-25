@@ -37,24 +37,30 @@ function setDomElements(controllerObj) {
     const boardOneLeft = document.createElement("div");
     boardOneLeft.classList.add("board-coords");
     boardOneLeft.setAttribute("id", "one-left");
-    boardOneLeft.innerHTML = "ABCDEFGHIJ"
     boardContainer.appendChild(boardOneLeft);
+
+    let labelList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+    for (let i = 0; i < labelList.length; i++) {
+        const labelP = document.createElement("p");
+        labelP.innerHTML = `${labelList[i]}`;
+        boardOneLeft.appendChild(labelP);
+    }
 
     const boardOneTop = document.createElement("div");
     boardOneTop.classList.add("board-coords");
     boardOneTop.setAttribute("id", "one-top");
-    boardOneTop.innerHTML = "0123456789"
     boardContainer.appendChild(boardOneTop);
+
+    const boardOneTopSub = document.createElement("p");
+    boardOneTopSub.classList.add("board-coords-sub");
+    boardOneTopSub.setAttribute("id", "one-top-sub");
+    boardOneTopSub.innerHTML = "0123456789";
+    boardOneTop.appendChild(boardOneTopSub);
 
     const boardOneDiv = document.createElement("div");
     boardOneDiv.classList.add("board");
     boardOneDiv.setAttribute("id", "one");
     boardContainer.appendChild(boardOneDiv);
-
-    // const messageBoard = document.createElement("div");
-    // messageBoard.classList.add("message");
-    // messageBoard.innerHTML = "Welcome to Battleship! Place Your Ships";
-    // containerDiv.appendChild(messageBoard);
 
     const playerTwoDiv = document.createElement("div");
     playerTwoDiv.classList.add("guess-list");
@@ -76,14 +82,24 @@ function setDomElements(controllerObj) {
     const boardTwoLeft = document.createElement("div");
     boardTwoLeft.classList.add("board-coords");
     boardTwoLeft.setAttribute("id", "two-left");
-    boardTwoLeft.innerHTML = "ABCDEFGHIJ"
     boardContainer.appendChild(boardTwoLeft);
+
+    for (let i = 0; i < labelList.length; i++) {
+        const labelP = document.createElement("p");
+        labelP.innerHTML = `${labelList[i]}`;
+        boardTwoLeft.appendChild(labelP);
+    }
 
     const boardTwoTop = document.createElement("div");
     boardTwoTop.classList.add("board-coords");
     boardTwoTop.setAttribute("id", "two-top");
-    boardTwoTop.innerHTML = "0123456789"
     boardContainer.appendChild(boardTwoTop);
+
+    const boardTwoTopSub = document.createElement("p");
+    boardTwoTopSub.classList.add("board-coords-sub");
+    boardTwoTopSub.setAttribute("id", "two-top-sub");
+    boardTwoTopSub.innerHTML = "0123456789";
+    boardTwoTop.appendChild(boardTwoTopSub);
 
     const boardTwoDiv = document.createElement("div");
     boardTwoDiv.classList.add("board");
