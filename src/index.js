@@ -25,13 +25,18 @@ function setDomElements(controllerObj) {
     playerOneDiv.setAttribute("id", "p1-list");
     guessContainer.appendChild(playerOneDiv);
 
+    const welcomeMessage = document.createElement("h1");
+    welcomeMessage.classList.add("title-message");
+    welcomeMessage.innerHTML = "Welcome to<br>Battleship";
+    guessContainer.appendChild(welcomeMessage);
+
     const playerOnePara = document.createElement("div");
     playerOnePara.classList.add("guess-text");
     playerOnePara.setAttribute("id", "p1-ui");
     playerOneDiv.appendChild(playerOnePara);
 
     const playerOneHead = document.createElement("h3");
-    playerOneHead.innerHTML = "Coordinates Log:";
+    playerOneHead.innerHTML = "Player One Coordinate Log:";
     playerOneDiv.appendChild(playerOneHead);
 
     const boardOneLeft = document.createElement("div");
@@ -68,12 +73,20 @@ function setDomElements(controllerObj) {
     guessContainer.appendChild(playerTwoDiv);
 
     const playerTwoHead = document.createElement("h3");
-    playerTwoHead.innerHTML = "Coordinates Log:";
+    playerTwoHead.innerHTML = "Player Two Coordinate Log:";
     playerTwoDiv.appendChild(playerTwoHead);
 
     const playerTwoPara = document.createElement("div");
     playerTwoPara.classList.add("guess-text");
     playerTwoDiv.appendChild(playerTwoPara);
+
+    const centerConsole = document.createElement("div");
+    centerConsole.classList.add("center-console");
+    boardContainer.appendChild(centerConsole);
+
+    const consoleTitle = document.createElement("h3");
+    consoleTitle.innerHTML = "Battle Console";
+    centerConsole.appendChild(consoleTitle);
 
     const playerTwoSubPara = document.createElement("div");
     playerTwoSubPara.classList.add("guess-text");
