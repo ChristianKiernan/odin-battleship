@@ -208,7 +208,6 @@ function computerAttack(cords, controllerObj, textDiv) {
 
     if (output === "miss") {
         controllerObj.playerTwo.setGuessList(cords, "Miss");
-        controllerObj.playerTwo.setNumericList(cords);
         updateGuessDisplayTwo(controllerObj);
         controllerObj.switchTurns();
         textDiv.innerHTML = `Miss! Your turn, ${
@@ -217,7 +216,6 @@ function computerAttack(cords, controllerObj, textDiv) {
         return "miss";
     } else if (output === "hit") {
         controllerObj.playerTwo.setGuessList(cords, "Hit");
-        controllerObj.playerTwo.setNumericList(cords);
         updateGuessDisplayTwo(controllerObj);
         controllerObj.switchTurns();
         textDiv.innerHTML = `Hit! Your turn, ${
@@ -229,23 +227,14 @@ function computerAttack(cords, controllerObj, textDiv) {
 }
 
 function getRandCoords(controllerObj, textDiv) {
-    let numericList = controllerObj.playerTwo.getNumericList();
-    let inequality = true;
-    let coords = [];
-    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
-    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
-    coords.push(xcord, ycord);
-    while (inequality === true)
-        for (let i = 0; i < numericList.length; i ++) {
-            if(coords[0] == numericList[i].xCord && coords[1] == numericList[i].yCord) {
-                    coords = [];
-                    const xcord = Math.floor(Math.random() * 9); //Get a random x-cord, 0-9
-                    const ycord = Math.floor(Math.random() * 9); //Get a random y-cord, 0-9
-                    coords.push(xcord, ycord);
-            }
-        inequality = false;
-    }
-    computerAttack(coords, controllerObj, textDiv)
+    controllerObj.playerTwo.setPossibleList();
+    let possibleList = controllerObj.playerTwo.getPossibleList();
+    let index = Math.floor(Math.random() * possibleList.length);
+    let coords = possibleList[index];
+    let xcord = coords[0];
+    let ycord = coords[1];
+    controllerObj.playerTwo.removeFromPossibleList(possibleList, xcord, ycord);
+    computerAttack(coords, controllerObj, textDiv);
 }
 
 function updateGuessDisplayOne(controllerObj) {

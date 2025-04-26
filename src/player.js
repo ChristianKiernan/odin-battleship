@@ -6,7 +6,7 @@ export class Player {
         this.name = name;
         this.board = new Gameboard();
         this.guessList = [];
-        this.numericList =[];
+        this.possibleList = [];
     }
     setGuessList(cords, type) {
         const xcord = cords[0];
@@ -23,16 +23,48 @@ export class Player {
     getGuessList() {
         return this.guessList;
     }
-    setNumericList(cords) {
-        const xcord = cords[0];
-        const ycord = cords[1];
-        const numCords = {
-            xCord: xcord,
-            yCord: ycord,
+    setPossibleList() {
+        if (this.possibleList.length === 0) {
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([0, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([1, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([2, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([3, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([4, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([5, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([6, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([7, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([8, i]);
+            }
+            for (let i = 0; i < 10; i++) {
+                this.possibleList.push([9, i]);
+            }
         }
-        this.numericList.push(numCords);
     }
-    getNumericList() {
-        return this.numericList;
+    removeFromPossibleList(possibleList, xTarget, yTarget) {
+        let newList = possibleList.filter(
+            ([x, y]) => !(x === xTarget && y === yTarget)
+        );
+        this.possibleList = newList;
+        return this.possibleList;
+    }
+    getPossibleList() {
+        return this.possibleList;
     }
 }
