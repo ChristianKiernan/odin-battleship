@@ -111,11 +111,11 @@ body {
 }
 
 .guess-text {
-    column-count: 5;
+    column-count: 6;
     column-fill: balance;
     column-gap: 2px;
-    text-align: center;
-    padding: 8px;
+    text-align: left;
+    padding: 6px;
 }
 
 .guess-subtext {
@@ -124,6 +124,7 @@ body {
     max-height: 12;
     font-size: 9px;
     margin-bottom: 2px;
+    padding-left: 2px;
 }
 
 #p1-list {
