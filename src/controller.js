@@ -7,7 +7,6 @@ export class Controller {
         this.playerTwo = new Player("computer", "Player Two");
         this.activePlayer = this.playerOne;
         this.gameOver = false;
-        this.winner = null;
     }
     setUpOne() {
         this.playerOne.board.setBoard();
@@ -73,12 +72,5 @@ export class Controller {
             this.activePlayer === this.playerOne
                 ? this.playerTwo
                 : this.playerOne;
-    }
-    setRoundMessage() {
-        if (this.activePlayer === "PlayerOne") {
-            return "Click a square to attack, human";
-        } else {
-            return "My turn :)";
-        }
     }
 }
