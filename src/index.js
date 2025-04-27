@@ -278,7 +278,7 @@ function updateGuessDisplayTwo(controllerObj) {
 }
 
 function gameOver(controllerObj, textDiv) {
-    if(controllerObj.activePlayer.board.gameOver()) {
+    if (controllerObj.activePlayer.board.gameOver()) {
         controllerObj.switchTurns();
         textDiv.innerHTML = `Game Over! ${controllerObj.activePlayer.name} wins!`;
         return true;
