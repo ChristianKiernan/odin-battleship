@@ -116,10 +116,10 @@ body {
 }
 
 .guess-text {
-    column-count: 6;
+    column-count: 11;
     column-fill: balance;
     column-gap: 2px;
-    text-align: left;
+    text-align: center;
     padding: 6px;
 }
 
@@ -130,6 +130,8 @@ body {
     font-size: 9px;
     margin-bottom: 2px;
     padding-left: 2px;
+    padding-right: 2px;
+    max-width: 20px;
 }
 
 #p1-list {

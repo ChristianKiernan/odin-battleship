@@ -210,6 +210,9 @@ function playNewRound(controllerObj, cords) {
         controllerObj.playerOne.setGuessList(cords, "Hit");
         updateGuessDisplayOne(controllerObj);
         controllerObj.switchTurns();
+        if (gameOver(controllerObj, textDiv)) {
+            return;
+        }
         textDiv.innerHTML = `Hit! Your turn, ${
             controllerObj.getActivePlayer().name
         }.`;
@@ -238,6 +241,9 @@ function computerAttack(cords, controllerObj, textDiv) {
         updateGuessDisplayTwo(controllerObj);
         updateBoardOneDisplay(cords, "hit");
         controllerObj.switchTurns();
+        if (gameOver(controllerObj, textDiv)) {
+            return;
+        }
         textDiv.innerHTML = `Hit! Your turn, ${
             controllerObj.getActivePlayer().name
         }.`;
@@ -260,15 +266,24 @@ function getRandCoords(controllerObj, textDiv) {
 function updateGuessDisplayOne(controllerObj) {
     const guesses = controllerObj.playerOne.getGuessList();
     for (let i = guesses.length - 1; i < guesses.length; i++) {
-        createSubParaOne().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
+        createSubParaOne().innerHTML = `(${guesses[i].Coords})`;
     }
 }
 
 function updateGuessDisplayTwo(controllerObj) {
     const guesses = controllerObj.playerTwo.getGuessList();
     for (let i = guesses.length - 1; i < guesses.length; i++) {
-        createSubParaTwo().innerHTML = `(${guesses[i].Coords}): ${guesses[i].Type}`;
+        createSubParaTwo().innerHTML = `(${guesses[i].Coords})`;
     }
+}
+
+function gameOver(controllerObj, textDiv) {
+    if(controllerObj.activePlayer.board.gameOver()) {
+        controllerObj.switchTurns();
+        textDiv.innerHTML = `Game Over! ${controllerObj.activePlayer.name} wins!`;
+        return true;
+    }
+    return false;
 }
 
 function createSubParaOne() {
