@@ -3,7 +3,7 @@ import { Controller } from "./controller";
 const newGame = new Controller();
 setDomElements(newGame);
 setShipDisplay(newGame);
-addBtnEvents(newGame);
+addBtnEventsOne(newGame);
 
 function setDomElements(controllerObj) {
     const body = document.querySelector("body");
@@ -131,7 +131,8 @@ function createBoardGrid(controlObj, parentDiv) {
             boardSquare.classList.add(
                 "board-square",
                 "square-red",
-                "square-green"
+                "square-green",
+                "square-grey"
             );
             boardSquare.setAttribute("class", "board-square");
             boardSquare.setAttribute("id", `${i} ${j}`);
@@ -140,7 +141,7 @@ function createBoardGrid(controlObj, parentDiv) {
     }
 }
 
-function addBtnEvents(controlObj) {
+function addBtnEventsOne(controlObj) {
     const parentDiv = document.querySelector("#two");
     const buttons = parentDiv.querySelectorAll("button");
 
@@ -160,6 +161,23 @@ function addBtnEvents(controlObj) {
     });
 }
 
+function updateBoardOneDisplay(coords, type) {
+    const parentDiv = document.querySelector("#one");
+    const buttons = parentDiv.querySelectorAll("button");
+    buttons.forEach((button) => {
+        let btnId = button.getAttribute("id");
+        let btnCords = btnId.split(" ").map(Number);
+        if (btnCords[0] === coords[0] && btnCords[1] === coords[1]) {
+            if (type === "miss") {
+                button.classList.toggle("square-red");
+            } else if (type === "hit") {
+                button.classList.remove("square-grey");
+                button.classList.toggle("square-green");
+            }
+        }
+    });
+}
+
 function setShipDisplay(controllerObj) {
     controllerObj.setUpOne();
     controllerObj.setUpTwo();
@@ -169,7 +187,7 @@ function setShipDisplay(controllerObj) {
         for (let j = 0; j < arr[i].length; j++) {
             if (arr[i][j].value !== "empty") {
                 let square = document.getElementById(`${i} ${j}`);
-                square.style.backgroundColor = "lightblue";
+                square.classList.toggle("square-grey");
             }
         }
     }
@@ -209,6 +227,7 @@ function computerAttack(cords, controllerObj, textDiv) {
     if (output === "miss") {
         controllerObj.playerTwo.setGuessList(cords, "Miss");
         updateGuessDisplayTwo(controllerObj);
+        updateBoardOneDisplay(cords, "miss");
         controllerObj.switchTurns();
         textDiv.innerHTML = `Miss! Your turn, ${
             controllerObj.getActivePlayer().name
@@ -217,6 +236,7 @@ function computerAttack(cords, controllerObj, textDiv) {
     } else if (output === "hit") {
         controllerObj.playerTwo.setGuessList(cords, "Hit");
         updateGuessDisplayTwo(controllerObj);
+        updateBoardOneDisplay(cords, "hit");
         controllerObj.switchTurns();
         textDiv.innerHTML = `Hit! Your turn, ${
             controllerObj.getActivePlayer().name
